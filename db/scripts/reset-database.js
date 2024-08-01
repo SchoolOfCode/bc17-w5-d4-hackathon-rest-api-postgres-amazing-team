@@ -11,44 +11,47 @@ async function resetDatabase() {
   try {
     // Drop existing tables if they exist
     await pool.query(`
-        DROP TABLE IF EXISTS artists CASCADE;
+        DROP TABLE IF EXISTS artist CASCADE;
         DROP TABLE IF EXISTS albums CASCADE;
     `);
 
     // Create the artists table
     await pool.query(`
-        CREATE TABLE artists (
-            id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-            name VARCHAR(255) NOT NULL
-        );
-    `);
+    CREATE TABLE Artist (
+    artist_ID INT PRIMARY KEY,
+    Name VARCHAR(255)
+);
+
+  `);
 
     // Create the albums table with a foreign key to the artists table
     await pool.query(`
-        CREATE TABLE albums (
-            id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-            title VARCHAR(255) NOT NULL,
-            published_date DATE,
-            artist_id INT REFERENCES artists(id)
-        );
+      CREATE TABLE Albums (
+        AlbumID INT PRIMARY KEY,
+        Title VARCHAR(255),
+        published_date DATE,
+        artist_id INT,
+        FOREIGN KEY (artist_ID) REFERENCES Artist(artist_ID)
+      );
     `);
+    
 
     // Seed the artists table
     await pool.query(`
-        INSERT INTO artists (name)
+        INSERT INTO Artist (artist_ID, name)
         VALUES 
-            ('Dua Lipa'),
-            ('Jay-Z');
+            (1, 'Dua Lipa'),
+            (2, 'Jay-Z');
     `);
 
     // Seed the albums table
     await pool.query(`
-        INSERT INTO albums (title, published_date, artist_id)
+        INSERT INTO albums (AlbumID, title, published_date, artist_id)
         VALUES 
-            ('Dua Lipa', '2017-06-02', 1),
-            ('Future Nostalgia', '2020-03-27', 1),
-            ('Reasonable Doubt', '1996-06-25', 2),
-            ('The Blueprint', '2001-09-11', 2);
+            (1,'Dua Lipa', '2017-06-02', 1),
+            (2,'Future Nostalgia', '2020-03-27', 1),
+            (3,'Reasonable Doubt', '1996-06-25', 2),
+            (4,'The Blueprint', '2001-09-11', 2);
     `);
 
     console.log("Database reset successful");
