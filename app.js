@@ -35,10 +35,10 @@ app.use(express.json()); // express.json() middleware is used to parse incoming 
 // Resource One Route Handlers
 
 // Endpoint to retrieve all <resource_one>
-app.get("/Artists/", async function (req, res) {
+app.get("/Artist/", async function (req, res) {
   try {
-    const artists = await getArtist();
-    res.status(200).json({ status: "success", data: artists });
+    const artist = await getArtist();
+    res.status(200).json({ status: "success", data:artist });
   } catch (err) {
     console.log(err);
     res.status(500).json({ status: "error", error: err.message });
@@ -48,19 +48,19 @@ app.get("/Artists/", async function (req, res) {
 });
 
 // Endpoint to retrieve a <resource_one> by id
-app.get("/Artists/:id", async function (req, res) {
+app.get("/Artist/:id", async function (req, res) {
 });
 
 // Endpoint to create a new <resource_one>
-app.post("/Artists/", async function (req, res) {
+app.post("/Artist/", async function (req, res) {
 });
 
 // Endpoint to update a specific <resource_one> by id
-app.patch("/Artists/:id", async function (req, res) {
+app.patch("/Artist/:id", async function (req, res) {
 });
 
 // Endpoint to delete a specific <resource_one> by id
-app.delete("/Artists/:id", async function (req, res) {
+app.delete("/Artist/:id", async function (req, res) {
 });
 
 

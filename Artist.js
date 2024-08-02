@@ -3,9 +3,9 @@
 import { pool } from "./db/index.js";
 
 export async function getArtist() {
-  app.get("/artists", async function (req, res) {
-    const artists = await getArtists();
-    res.status(200).json({ status: "success", data: artists });
+  app.get("/artist", async function (req, res) {
+    const artists = await artist();
+    res.status(200).json({ status: "success", data: artist });
   });
   
   // Query the database and return all resource ones
