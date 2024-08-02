@@ -14,9 +14,11 @@ export async function getArtist() {
   
   // Query the database and return all resource ones
 
-
+// Query the database and return the resource with a matching id or null
 export async function getArtistById(id) {
-  // Query the database and return the resource with a matching id or null
+  const queryText  = "SELECT * FROM artist where id = $1";
+  const result = await pool.query(queryText,[id]);
+  return result.rows;
 }
 
 export async function createArtist(resource) {

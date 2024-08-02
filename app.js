@@ -48,6 +48,13 @@ app.get("/Artist/", async function (req, res) {
 
 // Endpoint to retrieve a <resource_one> by id
 app.get("/Artist/:id", async function (req, res) {
+  try {
+    const artist = await getArtistById(req.params.id);
+    res.status(200).json({ status: "success", payload:artist});
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ status: "error", error: err.message });
+  }
 });
 
 // Endpoint to create a new <resource_one>
