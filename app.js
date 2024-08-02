@@ -9,7 +9,7 @@ import {
   createArtist,
   updateArtistById,
   deleteArtistId,
-} from "./resource_one.js";
+} from "./Artist.js";
 
 
 import {
@@ -18,7 +18,7 @@ import {
   createResourceTwo,
   updateResourceTwoById,
   deleteResourceTwoById,
-} from "./resource_two.js";
+} from "./Albums.js";
 
 
 
