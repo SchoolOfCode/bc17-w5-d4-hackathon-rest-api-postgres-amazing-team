@@ -3,13 +3,17 @@
 import { pool } from "./db/index.js";
 
 export async function getArtist() {
-  app.get("/artist", async function (req, res) {
-    const artists = await artist();
-    res.status(200).json({ status: "success", data: artist });
-  });
+  const query = "SELECT * FROM artist";
+  const result = await pool.query(query);
+  return result.rows;
+}
+  //app.get("/artist", async function (req, res) {
+    //const artists = await artist();
+    //res.status(200).json({ status: "success", data: artist });
+  //});
   
   // Query the database and return all resource ones
-}
+
 
 export async function getArtistById(id) {
   // Query the database and return the resource with a matching id or null
