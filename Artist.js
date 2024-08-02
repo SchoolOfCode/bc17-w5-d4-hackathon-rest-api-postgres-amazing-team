@@ -1,4 +1,4 @@
-
+import express from "express";
 // Import the 'pool' object so our helper functions can interact with the PostgreSQL database
 import { pool } from "./db/index.js";
 
@@ -15,11 +15,20 @@ export async function getArtist() {
   // Query the database and return all resource ones
 
 // Query the database and return the resource with a matching id or null
-export async function getArtistById(id) {
-  const queryText  = "SELECT * FROM artist where id = $1";
-  const result = await pool.query(queryText,[id]);
-  return result.rows;
-}
+export async function getArtistById(artist_id) {
+  console.log(`Attempting to fetch artist with ID: ${artist_id}`);
+
+  const queryText  = "SELECT * FROM artist where artist_id = $1";
+  try {
+    const result = await pool.query(queryText, [artist_id]);
+    console.log(`Query result:`, result.rows);
+    if (result.rows.length === 0){
+      return null;
+    }
+  return result.rows[0];
+} catch (error){
+  console.log(error);
+}}
 
 export async function createArtist(resource) {
   // Query the database to create an resource and return the newly created resource

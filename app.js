@@ -38,7 +38,7 @@ app.use(express.json()); // express.json() middleware is used to parse incoming 
 app.get("/Artist/", async function (req, res) {
   try {
     const artist = await getArtist();
-    res.status(200).json({ status: "success", payload:artist });
+    res.status(200).json({ status: "success", data: artist });
   } catch (err) {
     console.log(err);
     res.status(500).json({ status: "error", error: err.message });
@@ -48,8 +48,12 @@ app.get("/Artist/", async function (req, res) {
 
 // Endpoint to retrieve a <resource_one> by id
 app.get("/Artist/:id", async function (req, res) {
+  console.log(`Received request for artist ID: ${req.params.id}`);
   try {
     const artist = await getArtistById(req.params.id);
+    if (!artist) {
+      return res.status(404).json({ status: "error", message: "Artist not found" });
+    }
     res.status(200).json({ status: "success", payload:artist});
   } catch (err) {
     console.log(err);
